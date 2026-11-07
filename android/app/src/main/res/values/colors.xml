@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#162d50</color>
-    <color name="primary_dark">#000128</color>
-    <color name="accent">#ffaaee</color>
+    <!-- NivadaSubs: night navy surfaces, electric blue accent -->
+    <color name="primary">#0A1020</color>
+    <color name="primary_dark">#070B16</color>
+    <color name="accent">#4D8DFF</color>
+    <color name="accent_strong">#2E6BEA</color>
+
+    <color name="surface">#121A2E</color>
+    <color name="surface_high">#1A2540</color>
+    <color name="outline">#2A3756</color>
+    <color name="text_primary">#EEF2FA</color>
+    <color name="text_muted">#A3B0CC</color>
 
     <color name="stream_text">@android:color/white</color>
     <color name="stream_background">@android:color/black</color>
-    <color name="stream_overlay_background">#77000000</color>
+    <color name="stream_overlay_background">#CC0A1020</color>
+    <color name="subtitle_background">#D90A1020</color>
 
-    <color name="floating_action_button_speed_dial_background">#fafafa</color>
-    <color name="floating_action_button_speed_dial_tint">#333333</color>
+    <color name="floating_action_button_speed_dial_background">@color/surface_high</color>
+    <color name="floating_action_button_speed_dial_tint">@color/text_primary</color>
 
     <color name="control_primary">#22ffffff</color>
     <color name="control_pressed">#88ffffff</color>

@@ -3,6 +3,7 @@
     android:id="@+id/rootLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false">
@@ -40,14 +41,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif"
+            android:textSize="17sp"
+            android:lineSpacingMultiplier="1.25"
+            android:textColor="@color/text_muted"
             android:text="@string/display_hosts_empty_discovery_off_info"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/emptyInfoImageView"
             android:gravity="center_horizontal"
-            android:maxWidth="300dp"/>
+            android:maxWidth="360dp"/>
     </LinearLayout>
 
     <FrameLayout
@@ -90,7 +94,7 @@
                 android:text="@string/action_register"
                 android:textStyle="bold"
                 app:rippleColor="@color/floating_action_button_speed_dial_tint"
-                app:cornerRadius="8dp" />
+                app:cornerRadius="12dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/registerButton"
@@ -117,7 +121,7 @@
                 android:text="@string/action_add_manual"
                 android:textStyle="bold"
                 app:rippleColor="@color/floating_action_button_speed_dial_tint"
-                app:cornerRadius="8dp" />
+                app:cornerRadius="12dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/addManualButton"
@@ -143,23 +147,46 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:background="@color/primary"
+        app:elevation="0dp">
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:background="?attr/colorPrimarySurface"
+            android:background="@color/primary"
+            android:minHeight="72dp"
             app:layout_scrollFlags="scroll|enterAlways"
             android:theme="@style/AppTheme.Toolbar">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:text="@string/title_main"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="20dp" />
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal"
+                android:contentDescription="@string/title_main">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Nivada"
+                    android:textColor="@color/text_primary"
+                    android:textSize="24sp"
+                    android:importantForAccessibility="no"
+                    tools:ignore="HardcodedText" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Subs"
+                    android:textColor="@color/accent"
+                    android:textSize="24sp"
+                    android:importantForAccessibility="no"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>

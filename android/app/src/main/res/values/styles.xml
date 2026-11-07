@@ -3,19 +3,47 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
-        <item name="colorOnPrimary">#ffffff</item>
+        <item name="colorOnPrimary">@color/text_primary</item>
         <item name="colorSecondary">@color/accent</item>
-        <item name="colorOnSecondary">#000000</item>
-        <item name="android:statusBarColor">?attr/colorPrimarySurface</item>
-        <item name="android:navigationBarColor">?attr/colorPrimarySurface</item>
+        <item name="colorOnSecondary">#ffffff</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorPrimarySurface">@color/primary</item>
+        <item name="android:colorBackground">@color/primary</item>
+        <item name="android:windowBackground">@color/primary</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_muted</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorControlHighlight">#334D8DFF</item>
+        <item name="android:listDivider">@color/outline</item>
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:navigationBarColor">@color/primary</item>
         <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialog</item>
         <item name="alertDialogTheme">@style/AppTheme.AlertDialog.NonMaterial</item>
+        <item name="floatingActionButtonStyle">@style/AppTheme.Fab</item>
+        <item name="preferenceTheme">@style/AppTheme.Preference</item>
 
         <item name="android:windowActivityTransitions">true</item>
     </style>
 
+    <style name="AppTheme.Fab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/accent_strong</item>
+        <item name="tint">#ffffff</item>
+        <item name="shapeAppearanceOverlay">@style/AppTheme.Fab.Shape</item>
+    </style>
+
+    <style name="AppTheme.Fab.Shape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">18dp</item>
+    </style>
+
+    <style name="AppTheme.Preference" parent="PreferenceThemeOverlay">
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_muted</item>
+    </style>
+
     <style name="AppTheme.Toolbar" parent="AppTheme">
-        <item name="android:textColorSecondary">#fff</item>
+        <item name="android:textColorSecondary">@color/text_primary</item>
     </style>
 
     <style name="AppTheme.FloatingActionButtonSpeedDial">
@@ -24,8 +52,13 @@
         <item name="android:textColor">@color/floating_action_button_speed_dial_tint</item>
     </style>
 
-    <style name="AppTheme.AlertDialog" parent="Theme.MaterialComponents.Dialog.Alert">
-        <item name="android:textColorPrimary">@android:color/primary_text_dark</item>
+    <style name="AppTheme.AlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="colorSurface">@color/surface_high</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="shapeAppearanceOverlay">@style/AppTheme.AlertDialog.Shape</item>
         <item name="materialButtonStyle">@style/AppTheme.AlertDialog.Button</item>
     </style>
 
@@ -33,6 +66,11 @@
         <item name="android:textColorPrimary">@android:color/primary_text_dark</item>
         <item name="materialButtonStyle">@style/AppTheme.AlertDialog.Button</item>
         <item name="colorControlActivated">@color/accent</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog.Shape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
     </style>
 
     <style name="AppTheme.AlertDialog.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">

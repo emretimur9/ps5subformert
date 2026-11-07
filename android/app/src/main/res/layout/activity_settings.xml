@@ -10,16 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
+        android:minHeight="72dp"
+        android:background="@color/primary"
         android:theme="@style/AppTheme.Toolbar">
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-condensed"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="8dp"
+            android:fontFamily="sans-serif-black"
             android:text="@string/title_settings"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="20dp"/>
+            android:textColor="@color/text_primary"
+            android:textSize="24sp"/>
     </com.google.android.material.appbar.MaterialToolbar>
 
     <FrameLayout
