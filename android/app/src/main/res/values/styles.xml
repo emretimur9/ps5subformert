@@ -82,8 +82,8 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="colorOnPrimary">#ffffff</item>
-        <item name="colorSecondary">@color/accent</item>
-        <item name="colorOnSecondary">#000000</item>
+        <item name="colorSecondary">@color/accent_strong</item>
+        <item name="colorOnSecondary">#ffffff</item>
         <item name="colorPrimarySurface">@color/primary</item>
         <item name="android:windowBackground">@color/primary</item>
         <item name="android:statusBarColor">?attr/colorPrimarySurface</item>
