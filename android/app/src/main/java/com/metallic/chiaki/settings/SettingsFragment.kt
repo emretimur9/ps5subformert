@@ -48,6 +48,8 @@ class DataStore(val preferences: Preferences): PreferenceDataStore()
 		preferences.fpsKey -> preferences.fps.value
 		preferences.bitrateKey -> preferences.bitrate?.toString() ?: ""
 		preferences.codecKey -> preferences.codec.value
+		preferences.subtitleTranslationKey -> preferences.subtitleTranslation.value
+		preferences.deepLKeyKey -> preferences.deepLKey
 		else -> defValue
 	}
 
@@ -71,6 +73,12 @@ class DataStore(val preferences: Preferences): PreferenceDataStore()
 				val codec = Preferences.Codec.values().firstOrNull { it.value == value } ?: return
 				preferences.codec = codec
 			}
+			preferences.subtitleTranslationKey ->
+			{
+				val translation = Preferences.SubtitleTranslation.values().firstOrNull { it.value == value } ?: return
+				preferences.subtitleTranslation = translation
+			}
+			preferences.deepLKeyKey -> preferences.deepLKey = value ?: ""
 		}
 	}
 }
@@ -122,6 +130,21 @@ class SettingsFragment: PreferenceFragmentCompat(), TitleFragment
 		preferenceScreen.findPreference<ListPreference>(getString(R.string.preferences_codec_key))?.let {
 			it.entryValues = Preferences.codecAll.map { codec -> codec.value }.toTypedArray()
 			it.entries = Preferences.codecAll.map { codec -> getString(codec.title) }.toTypedArray()
+		}
+
+		preferenceScreen.findPreference<ListPreference>(getString(R.string.preferences_subtitle_translation_key))?.let {
+			it.entryValues = Preferences.SubtitleTranslation.values().map { t -> t.value }.toTypedArray()
+			it.entries = Preferences.SubtitleTranslation.values().map { t -> getString(t.title) }.toTypedArray()
+		}
+
+		preferenceScreen.findPreference<EditTextPreference>(getString(R.string.preferences_deepl_key_key))?.let {
+			it.summaryProvider = Preference.SummaryProvider<EditTextPreference> {
+				if(preferences.deepLKey.isEmpty()) getString(R.string.preferences_deepl_key_summary_empty)
+				else getString(R.string.preferences_deepl_key_summary_set)
+			}
+			it.setOnBindEditTextListener { editText ->
+				editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+			}
 		}
 
 		val registeredHostsPreference = preferenceScreen.findPreference<Preference>("registered_hosts")

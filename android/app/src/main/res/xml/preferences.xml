@@ -79,6 +79,21 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:key="category_subtitles"
+        app:title="@string/preferences_category_title_subtitles">
+        <ListPreference
+            app:key="@string/preferences_subtitle_translation_key"
+            app:title="@string/preferences_subtitle_translation_title"
+            app:summary="%s"
+            app:icon="@drawable/ic_log"/>
+
+        <EditTextPreference
+            app:key="@string/preferences_deepl_key_key"
+            app:title="@string/preferences_deepl_key_title"
+            app:icon="@drawable/ic_log"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:key="category_export"
         app:title="@string/preferences_category_title_export">
         <Preference

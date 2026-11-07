@@ -26,3 +26,14 @@ class LiveSubtitlesTest
 		assertArrayEquals(src, dst)
 	}
 }
+
+class DeepLTranslatorTest
+{
+	@Test
+	fun endpointByKeyType()
+	{
+		assertEquals("https://api-free.deepl.com/v2/translate", DeepLTranslator.endpoint("abc-123:fx"))
+		assertEquals("https://api-free.deepl.com/v2/translate", DeepLTranslator.endpoint(" abc:fx "))
+		assertEquals("https://api.deepl.com/v2/translate", DeepLTranslator.endpoint("abc-123"))
+	}
+}

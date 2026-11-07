@@ -39,6 +39,13 @@ class Preferences(context: Context)
 		CODEC_H265("h265", R.string.preferences_codec_title_h265, com.metallic.chiaki.lib.Codec.CODEC_H265)
 	}
 
+	enum class SubtitleTranslation(val value: String, @StringRes val title: Int)
+	{
+		OFF("off", R.string.preferences_subtitle_translation_title_off),
+		MLKIT("mlkit", R.string.preferences_subtitle_translation_title_mlkit),
+		DEEPL("deepl", R.string.preferences_subtitle_translation_title_deepl)
+	}
+
 	companion object
 	{
 		val resolutionDefault = Resolution.RES_720P
@@ -128,6 +135,18 @@ class Preferences(context: Context)
 			Codec.values().firstOrNull { it.value == value }
 		}  ?: codecDefault
 		set(value) { sharedPreferences.edit().putString(codecKey, value.value).apply() }
+
+	val subtitleTranslationKey get() = resources.getString(R.string.preferences_subtitle_translation_key)
+	var subtitleTranslation
+		get() = sharedPreferences.getString(subtitleTranslationKey, null)?.let { value ->
+			SubtitleTranslation.values().firstOrNull { it.value == value }
+		} ?: SubtitleTranslation.OFF
+		set(value) { sharedPreferences.edit().putString(subtitleTranslationKey, value.value).apply() }
+
+	val deepLKeyKey get() = resources.getString(R.string.preferences_deepl_key_key)
+	var deepLKey
+		get() = sharedPreferences.getString(deepLKeyKey, "") ?: ""
+		set(value) { sharedPreferences.edit().putString(deepLKeyKey, value.trim()).apply() }
 
 	private val videoProfileDefaultBitrate get() = ConnectVideoProfile.preset(resolution.preset, fps.preset, codec.codec)
 	val videoProfile get() = videoProfileDefaultBitrate.let {

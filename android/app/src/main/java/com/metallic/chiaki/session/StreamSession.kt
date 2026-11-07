@@ -19,7 +19,8 @@ data class StreamStateCreateError(val error: CreateError): StreamState()
 data class StreamStateQuit(val reason: QuitReason, val reasonString: String?): StreamState()
 data class StreamStateLoginPinRequest(val pinIncorrect: Boolean): StreamState()
 
-class StreamSession(val connectInfo: ConnectInfo, val logManager: LogManager, val logVerbose: Boolean, val input: StreamInput, val subtitleModelDir: File?)
+class StreamSession(val connectInfo: ConnectInfo, val logManager: LogManager, val logVerbose: Boolean, val input: StreamInput, val subtitleModelDir: File?,
+	val subtitleTranslatorFactory: (() -> SubtitleTranslator)?)
 {
 	var session: Session? = null
 		private set
@@ -73,7 +74,7 @@ class StreamSession(val connectInfo: ConnectInfo, val logManager: LogManager, va
 				session.setSurface(surface)
 			this.session = session
 			subtitleModelDir?.let { dir ->
-				subtitles = LiveSubtitles(session, dir) { _subtitle.postValue(it) }.also { it.start() }
+				subtitles = LiveSubtitles(session, dir, subtitleTranslatorFactory) { _subtitle.postValue(it) }.also { it.start() }
 			}
 		}
 		catch(e: CreateError)

@@ -8,13 +8,16 @@ import org.json.JSONObject
 import org.vosk.Model
 import org.vosk.Recognizer
 import java.io.File
+import java.util.concurrent.Executors
 
 /**
  * Pulls the decoded game audio from [session], runs offline speech recognition (Vosk)
  * and reports the current subtitle line through [onText] (from a background thread).
  * Empty text means "hide the subtitle".
+ * With [translatorFactory], finished sentences are replaced by their translation.
  */
-class LiveSubtitles(private val session: Session, private val modelDir: File, private val onText: (String) -> Unit)
+class LiveSubtitles(private val session: Session, private val modelDir: File,
+	private val translatorFactory: (() -> SubtitleTranslator)?, private val onText: (String) -> Unit)
 {
 	companion object
 	{
@@ -71,6 +74,8 @@ class LiveSubtitles(private val session: Session, private val modelDir: File, pr
 	}
 
 	@Volatile private var running = false
+	// bumped on every shown line, so a late translation never overwrites newer text
+	@Volatile private var generation = 0
 	private var thread: Thread? = null
 
 	fun start()
@@ -107,6 +112,20 @@ class LiveSubtitles(private val session: Session, private val modelDir: File, pr
 		val mono = ShortArray(buf.size)
 		var lastText = ""
 		var lastTextTime = 0L
+		fun show(text: String)
+		{
+			generation++
+			onText(text)
+		}
+
+		// translation runs on its own thread so slow networks never stall audio reading
+		val translateExecutor = Executors.newSingleThreadExecutor()
+		var translator: SubtitleTranslator? = null
+		translatorFactory?.let { factory ->
+			translateExecutor.execute {
+				translator = try { factory() } catch(e: Exception) { Log.e(TAG, "Translator init failed", e); null }
+			}
+		}
 		try
 		{
 			while(running)
@@ -129,22 +148,33 @@ class LiveSubtitles(private val session: Session, private val modelDir: File, pr
 					if(text.isNotBlank() && text != lastText)
 					{
 						lastText = text
-						onText(text)
+						show(text)
 					}
 					if(text.isNotBlank())
 						lastTextTime = now
+					if(final && text.isNotBlank() && translatorFactory != null)
+					{
+						val gen = generation
+						translateExecutor.execute {
+							val translated = try { translator?.translate(text) } catch(e: Exception) { Log.w(TAG, "Translation failed", e); null }
+							if(translated != null && gen == generation)
+								onText(translated)
+						}
+					}
 				}
 				if(lastText.isNotEmpty() && now - lastTextTime > CLEAR_AFTER_MS)
 				{
 					lastText = ""
-					onText("")
+					show("")
 				}
 			}
 		}
 		finally
 		{
 			recognizer.close()
-			onText("")
+			translateExecutor.execute { translator?.close() }
+			translateExecutor.shutdown()
+			show("")
 		}
 	}
 }

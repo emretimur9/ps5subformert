@@ -121,4 +121,14 @@
     <string name="preferences_fps_key">stream_fps</string>
     <string name="preferences_bitrate_key">stream_bitrate</string>
     <string name="preferences_codec_key">stream_codec</string>
+    <string name="preferences_subtitle_translation_key">subtitle_translation</string>
+    <string name="preferences_deepl_key_key">subtitle_deepl_key</string>
+    <string name="preferences_category_title_subtitles">Canlı Altyazı</string>
+    <string name="preferences_subtitle_translation_title">Türkçe çeviri</string>
+    <string name="preferences_subtitle_translation_title_off">Kapalı</string>
+    <string name="preferences_subtitle_translation_title_mlkit">Google ML Kit (cihazda, ücretsiz)</string>
+    <string name="preferences_subtitle_translation_title_deepl">DeepL (internet, API anahtarı)</string>
+    <string name="preferences_deepl_key_title">DeepL API anahtarı</string>
+    <string name="preferences_deepl_key_summary_empty">Girilmedi</string>
+    <string name="preferences_deepl_key_summary_set">Kayıtlı</string>
 </resources>
